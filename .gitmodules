@@ -1,3 +1,6 @@
 [submodule "client"]
 	path = client
 	url = ./client
+[submodule "react"]
+	path = react
+	url = ./react
