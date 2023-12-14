@@ -12,4 +12,5 @@ message Params {
   option (gogoproto.equal) = true;
 
   
+  string maxTurnDuration = 1 [(gogoproto.moretags) = "yaml:\"max_turn_duration\""];
 }

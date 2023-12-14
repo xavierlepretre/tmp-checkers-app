@@ -4,6 +4,81 @@ info:
   name: ''
   description: ''
 paths:
+  /checkers-app/checkers/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: CheckersappCheckersQuery_Params
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+                properties:
+                  maxTurnDuration:
+                    type: string
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /checkers-app/checkers/system_info:
+    get:
+      summary: Queries a SystemInfo by index.
+      operationId: CheckersappCheckersQuery_SystemInfo
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              SystemInfo:
+                type: object
+                properties:
+                  nextId:
+                    type: string
+                    format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /checkersapp.checkers.Msg/UpdateParams:
     post:
       summary: |-
@@ -57,6 +132,9 @@ paths:
 
                   NOTE: All parameters must be supplied.
                 type: object
+                properties:
+                  maxTurnDuration:
+                    type: string
             description: MsgUpdateParams is the Msg/UpdateParams request type.
       tags:
         - Msg
@@ -17928,29 +18006,6 @@ paths:
       tags:
         - Msg
 definitions:
-  checkersapp.checkers.MsgUpdateParams:
-    type: object
-    properties:
-      authority:
-        type: string
-        description: >-
-          authority is the address that controls the module (defaults to x/gov
-          unless overwritten).
-      params:
-        description: |-
-          params defines the module parameters to update.
-
-          NOTE: All parameters must be supplied.
-        type: object
-    description: MsgUpdateParams is the Msg/UpdateParams request type.
-  checkersapp.checkers.MsgUpdateParamsResponse:
-    type: object
-    description: |-
-      MsgUpdateParamsResponse defines the response structure for executing a
-      MsgUpdateParams message.
-  checkersapp.checkers.Params:
-    type: object
-    description: Params defines the parameters for the module.
   google.protobuf.Any:
     type: object
     properties:
@@ -18278,6 +18333,60 @@ definitions:
                   "@type": "type.googleapis.com/google.protobuf.Duration",
                   "value": "1.212s"
                 }
+  checkersapp.checkers.Params:
+    type: object
+    properties:
+      maxTurnDuration:
+        type: string
+    description: Params defines the parameters for the module.
+  checkersapp.checkers.QueryGetSystemInfoResponse:
+    type: object
+    properties:
+      SystemInfo:
+        type: object
+        properties:
+          nextId:
+            type: string
+            format: uint64
+  checkersapp.checkers.QueryParamsResponse:
+    type: object
+    properties:
+      params:
+        description: params holds all the parameters of this module.
+        type: object
+        properties:
+          maxTurnDuration:
+            type: string
+    description: QueryParamsResponse is response type for the Query/Params RPC method.
+  checkersapp.checkers.SystemInfo:
+    type: object
+    properties:
+      nextId:
+        type: string
+        format: uint64
+  checkersapp.checkers.MsgUpdateParams:
+    type: object
+    properties:
+      authority:
+        type: string
+        description: >-
+          authority is the address that controls the module (defaults to x/gov
+          unless overwritten).
+      params:
+        description: |-
+          params defines the module parameters to update.
+
+          NOTE: All parameters must be supplied.
+        type: object
+        properties:
+          maxTurnDuration:
+            type: string
+    description: MsgUpdateParams is the Msg/UpdateParams request type.
+  checkersapp.checkers.MsgUpdateParamsResponse:
+    type: object
+    description: |-
+      MsgUpdateParamsResponse defines the response structure for executing a
+      MsgUpdateParams message.
   cosmos.auth.v1beta1.MsgUpdateParams:
     type: object
     properties:
