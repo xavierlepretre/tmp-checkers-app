@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"checkers-app/x/checkers/types"
+
 	"github.com/stretchr/testify/require"
 )
 
@@ -22,10 +23,10 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
-				SystemInfo: &types.SystemInfo{
+				SystemInfo: types.SystemInfo{
 					NextId: 63,
 				},
-				StoredGameList: []types.StoredGame{
+				StoredGameList: []types.IndexedGame{
 					{
 						Index: "0",
 					},
@@ -40,7 +41,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "duplicated storedGame",
 			genState: &types.GenesisState{
-				StoredGameList: []types.StoredGame{
+				StoredGameList: []types.IndexedGame{
 					{
 						Index: "0",
 					},

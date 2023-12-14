@@ -9,14 +9,15 @@ import (
 	"checkers-app/testutil/nullify"
 	"checkers-app/x/checkers/keeper"
 	"checkers-app/x/checkers/types"
+
 	"github.com/stretchr/testify/require"
 )
 
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func createNStoredGame(keeper keeper.Keeper, ctx context.Context, n int) []types.StoredGame {
-	items := make([]types.StoredGame, n)
+func createNStoredGame(keeper keeper.Keeper, ctx context.Context, n int) []types.IndexedGame {
+	items := make([]types.IndexedGame, n)
 	for i := range items {
 		items[i].Index = strconv.Itoa(i)
 

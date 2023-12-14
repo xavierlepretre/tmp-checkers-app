@@ -5,6 +5,7 @@ package types
 
 import (
 	fmt "fmt"
+	_ "github.com/cosmos/gogoproto/gogoproto"
 	proto "github.com/cosmos/gogoproto/proto"
 	io "io"
 	math "math"
@@ -23,11 +24,10 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type StoredGame struct {
-	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
-	Board string `protobuf:"bytes,2,opt,name=board,proto3" json:"board,omitempty"`
-	Turn  string `protobuf:"bytes,3,opt,name=turn,proto3" json:"turn,omitempty"`
-	Black string `protobuf:"bytes,4,opt,name=black,proto3" json:"black,omitempty"`
-	Red   string `protobuf:"bytes,5,opt,name=red,proto3" json:"red,omitempty"`
+	Board string `protobuf:"bytes,1,opt,name=board,proto3" json:"board,omitempty"`
+	Turn  string `protobuf:"bytes,2,opt,name=turn,proto3" json:"turn,omitempty"`
+	Black string `protobuf:"bytes,3,opt,name=black,proto3" json:"black,omitempty"`
+	Red   string `protobuf:"bytes,4,opt,name=red,proto3" json:"red,omitempty"`
 }
 
 func (m *StoredGame) Reset()         { *m = StoredGame{} }
@@ -63,13 +63,6 @@ func (m *StoredGame) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_StoredGame proto.InternalMessageInfo
 
-func (m *StoredGame) GetIndex() string {
-	if m != nil {
-		return m.Index
-	}
-	return ""
-}
-
 func (m *StoredGame) GetBoard() string {
 	if m != nil {
 		return m.Board
@@ -98,8 +91,61 @@ func (m *StoredGame) GetRed() string {
 	return ""
 }
 
+type IndexedGame struct {
+	Index string     `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+	Game  StoredGame `protobuf:"bytes,2,opt,name=game,proto3" json:"game"`
+}
+
+func (m *IndexedGame) Reset()         { *m = IndexedGame{} }
+func (m *IndexedGame) String() string { return proto.CompactTextString(m) }
+func (*IndexedGame) ProtoMessage()    {}
+func (*IndexedGame) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1a8ec3d90005565e, []int{1}
+}
+func (m *IndexedGame) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *IndexedGame) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_IndexedGame.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *IndexedGame) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IndexedGame.Merge(m, src)
+}
+func (m *IndexedGame) XXX_Size() int {
+	return m.Size()
+}
+func (m *IndexedGame) XXX_DiscardUnknown() {
+	xxx_messageInfo_IndexedGame.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_IndexedGame proto.InternalMessageInfo
+
+func (m *IndexedGame) GetIndex() string {
+	if m != nil {
+		return m.Index
+	}
+	return ""
+}
+
+func (m *IndexedGame) GetGame() StoredGame {
+	if m != nil {
+		return m.Game
+	}
+	return StoredGame{}
+}
+
 func init() {
 	proto.RegisterType((*StoredGame)(nil), "checkersapp.checkers.StoredGame")
+	proto.RegisterType((*IndexedGame)(nil), "checkersapp.checkers.IndexedGame")
 }
 
 func init() {
@@ -107,19 +153,22 @@ func init() {
 }
 
 var fileDescriptor_1a8ec3d90005565e = []byte{
-	// 192 bytes of a gzipped FileDescriptorProto
+	// 238 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x4b, 0xce, 0x48, 0x4d,
 	0xce, 0x4e, 0x2d, 0x2a, 0x4e, 0x2c, 0x28, 0xd0, 0x87, 0xb1, 0xf5, 0x8b, 0x4b, 0xf2, 0x8b, 0x52,
 	0x53, 0xe2, 0xd3, 0x13, 0x73, 0x53, 0xf5, 0x0a, 0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0x44, 0x90, 0xd4,
-	0xe9, 0xc1, 0xd8, 0x4a, 0x25, 0x5c, 0x5c, 0xc1, 0x60, 0xa5, 0xee, 0x89, 0xb9, 0xa9, 0x42, 0x22,
-	0x5c, 0xac, 0x99, 0x79, 0x29, 0xa9, 0x15, 0x12, 0x8c, 0x0a, 0x8c, 0x1a, 0x9c, 0x41, 0x10, 0x0e,
-	0x48, 0x34, 0x29, 0x3f, 0xb1, 0x28, 0x45, 0x82, 0x09, 0x22, 0x0a, 0xe6, 0x08, 0x09, 0x71, 0xb1,
-	0x94, 0x94, 0x16, 0xe5, 0x49, 0x30, 0x83, 0x05, 0xc1, 0x6c, 0xb0, 0xca, 0x9c, 0xc4, 0xe4, 0x6c,
-	0x09, 0x16, 0xa8, 0x4a, 0x10, 0x47, 0x48, 0x80, 0x8b, 0xb9, 0x28, 0x35, 0x45, 0x82, 0x15, 0x2c,
-	0x06, 0x62, 0x3a, 0x99, 0x9f, 0x78, 0x24, 0xc7, 0x78, 0xe1, 0x91, 0x1c, 0xe3, 0x83, 0x47, 0x72,
-	0x8c, 0x13, 0x1e, 0xcb, 0x31, 0x5c, 0x78, 0x2c, 0xc7, 0x70, 0xe3, 0xb1, 0x1c, 0x43, 0x94, 0x2c,
-	0xcc, 0x65, 0xba, 0x20, 0xef, 0x54, 0x20, 0x3c, 0x54, 0x52, 0x59, 0x90, 0x5a, 0x9c, 0xc4, 0x06,
-	0xf6, 0x8b, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0xe9, 0xde, 0x61, 0x18, 0xf5, 0x00, 0x00, 0x00,
+	0xe9, 0xc1, 0xd8, 0x52, 0x22, 0xe9, 0xf9, 0xe9, 0xf9, 0x60, 0x05, 0xfa, 0x20, 0x16, 0x44, 0xad,
+	0x52, 0x1c, 0x17, 0x57, 0x30, 0xd8, 0x00, 0xf7, 0xc4, 0xdc, 0x54, 0x21, 0x11, 0x2e, 0xd6, 0xa4,
+	0xfc, 0xc4, 0xa2, 0x14, 0x09, 0x46, 0x05, 0x46, 0x0d, 0xce, 0x20, 0x08, 0x47, 0x48, 0x88, 0x8b,
+	0xa5, 0xa4, 0xb4, 0x28, 0x4f, 0x82, 0x09, 0x2c, 0x08, 0x66, 0x83, 0x55, 0xe6, 0x24, 0x26, 0x67,
+	0x4b, 0x30, 0x43, 0x55, 0x82, 0x38, 0x42, 0x02, 0x5c, 0xcc, 0x45, 0xa9, 0x29, 0x12, 0x2c, 0x60,
+	0x31, 0x10, 0x53, 0x29, 0x9e, 0x8b, 0xdb, 0x33, 0x2f, 0x25, 0xb5, 0x02, 0x61, 0x41, 0x26, 0x88,
+	0x0b, 0xb3, 0x00, 0xcc, 0x11, 0xb2, 0xe2, 0x62, 0x01, 0x39, 0x1f, 0x6c, 0x01, 0xb7, 0x91, 0x82,
+	0x1e, 0x36, 0xf7, 0xeb, 0x21, 0x9c, 0xe9, 0xc4, 0x72, 0xe2, 0x9e, 0x3c, 0x43, 0x10, 0x58, 0x8f,
+	0x93, 0xf9, 0x89, 0x47, 0x72, 0x8c, 0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7, 0x38, 0xe1,
+	0xb1, 0x1c, 0xc3, 0x85, 0xc7, 0x72, 0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0xc9, 0xc2, 0xb4, 0xea,
+	0x82, 0xc2, 0xab, 0x02, 0x11, 0x62, 0x25, 0x95, 0x05, 0xa9, 0xc5, 0x49, 0x6c, 0xe0, 0x00, 0x30,
+	0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0x1f, 0x07, 0x0e, 0x24, 0x56, 0x01, 0x00, 0x00,
 }
 
 func (m *StoredGame) Marshal() (dAtA []byte, err error) {
@@ -147,29 +196,62 @@ func (m *StoredGame) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		copy(dAtA[i:], m.Red)
 		i = encodeVarintStoredGame(dAtA, i, uint64(len(m.Red)))
 		i--
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x22
 	}
 	if len(m.Black) > 0 {
 		i -= len(m.Black)
 		copy(dAtA[i:], m.Black)
 		i = encodeVarintStoredGame(dAtA, i, uint64(len(m.Black)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x1a
 	}
 	if len(m.Turn) > 0 {
 		i -= len(m.Turn)
 		copy(dAtA[i:], m.Turn)
 		i = encodeVarintStoredGame(dAtA, i, uint64(len(m.Turn)))
 		i--
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x12
 	}
 	if len(m.Board) > 0 {
 		i -= len(m.Board)
 		copy(dAtA[i:], m.Board)
 		i = encodeVarintStoredGame(dAtA, i, uint64(len(m.Board)))
 		i--
-		dAtA[i] = 0x12
+		dAtA[i] = 0xa
 	}
+	return len(dAtA) - i, nil
+}
+
+func (m *IndexedGame) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *IndexedGame) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *IndexedGame) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.Game.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintStoredGame(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x12
 	if len(m.Index) > 0 {
 		i -= len(m.Index)
 		copy(dAtA[i:], m.Index)
@@ -197,10 +279,6 @@ func (m *StoredGame) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Index)
-	if l > 0 {
-		n += 1 + l + sovStoredGame(uint64(l))
-	}
 	l = len(m.Board)
 	if l > 0 {
 		n += 1 + l + sovStoredGame(uint64(l))
@@ -217,6 +295,21 @@ func (m *StoredGame) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovStoredGame(uint64(l))
 	}
+	return n
+}
+
+func (m *IndexedGame) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Index)
+	if l > 0 {
+		n += 1 + l + sovStoredGame(uint64(l))
+	}
+	l = m.Game.Size()
+	n += 1 + l + sovStoredGame(uint64(l))
 	return n
 }
 
@@ -257,6 +350,184 @@ func (m *StoredGame) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Board", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowStoredGame
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthStoredGame
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthStoredGame
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Board = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Turn", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowStoredGame
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthStoredGame
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthStoredGame
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Turn = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Black", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowStoredGame
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthStoredGame
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthStoredGame
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Black = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Red", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowStoredGame
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthStoredGame
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthStoredGame
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Red = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipStoredGame(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthStoredGame
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *IndexedGame) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowStoredGame
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: IndexedGame: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: IndexedGame: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Index", wireType)
 			}
 			var stringLen uint64
@@ -289,9 +560,9 @@ func (m *StoredGame) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Board", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Game", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowStoredGame
@@ -301,119 +572,24 @@ func (m *StoredGame) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthStoredGame
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex < 0 {
 				return ErrInvalidLengthStoredGame
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Board = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Turn", wireType)
+			if err := m.Game.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowStoredGame
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthStoredGame
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthStoredGame
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Turn = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 4:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Black", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowStoredGame
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthStoredGame
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthStoredGame
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Black = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 5:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Red", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowStoredGame
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthStoredGame
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthStoredGame
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Red = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

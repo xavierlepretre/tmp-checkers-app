@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"checkers-app/x/checkers/types"
+
 	"cosmossdk.io/store/prefix"
 	"github.com/cosmos/cosmos-sdk/runtime"
 	"github.com/cosmos/cosmos-sdk/types/query"
@@ -16,7 +17,7 @@ func (k Keeper) StoredGameAll(ctx context.Context, req *types.QueryAllStoredGame
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	var storedGames []types.StoredGame
+	var storedGames []types.IndexedGame
 
 	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	storedGameStore := prefix.NewStore(store, types.KeyPrefix(types.StoredGameKeyPrefix))
@@ -27,7 +28,10 @@ func (k Keeper) StoredGameAll(ctx context.Context, req *types.QueryAllStoredGame
 			return err
 		}
 
-		storedGames = append(storedGames, storedGame)
+		storedGames = append(storedGames, types.IndexedGame{
+			Index: string(key[:]),
+			Game:  storedGame,
+		})
 		return nil
 	})
 

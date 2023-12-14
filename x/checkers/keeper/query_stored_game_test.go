@@ -31,14 +31,14 @@ func TestStoredGameQuerySingle(t *testing.T) {
 			request: &types.QueryGetStoredGameRequest{
 				Index: msgs[0].Index,
 			},
-			response: &types.QueryGetStoredGameResponse{StoredGame: msgs[0]},
+			response: &types.QueryGetStoredGameResponse{StoredGame: msgs[0].Game},
 		},
 		{
 			desc: "Second",
 			request: &types.QueryGetStoredGameRequest{
 				Index: msgs[1].Index,
 			},
-			response: &types.QueryGetStoredGameResponse{StoredGame: msgs[1]},
+			response: &types.QueryGetStoredGameResponse{StoredGame: msgs[1].Game},
 		},
 		{
 			desc: "KeyNotFound",

@@ -4,6 +4,7 @@ package checkers
 import (
 	fmt "fmt"
 	runtime "github.com/cosmos/cosmos-proto/runtime"
+	_ "github.com/cosmos/gogoproto/gogoproto"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoiface "google.golang.org/protobuf/runtime/protoiface"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -14,7 +15,6 @@ import (
 
 var (
 	md_StoredGame       protoreflect.MessageDescriptor
-	fd_StoredGame_index protoreflect.FieldDescriptor
 	fd_StoredGame_board protoreflect.FieldDescriptor
 	fd_StoredGame_turn  protoreflect.FieldDescriptor
 	fd_StoredGame_black protoreflect.FieldDescriptor
@@ -24,7 +24,6 @@ var (
 func init() {
 	file_checkersapp_checkers_stored_game_proto_init()
 	md_StoredGame = File_checkersapp_checkers_stored_game_proto.Messages().ByName("StoredGame")
-	fd_StoredGame_index = md_StoredGame.Fields().ByName("index")
 	fd_StoredGame_board = md_StoredGame.Fields().ByName("board")
 	fd_StoredGame_turn = md_StoredGame.Fields().ByName("turn")
 	fd_StoredGame_black = md_StoredGame.Fields().ByName("black")
@@ -96,12 +95,6 @@ func (x *fastReflection_StoredGame) Interface() protoreflect.ProtoMessage {
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_StoredGame) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.Index != "" {
-		value := protoreflect.ValueOfString(x.Index)
-		if !f(fd_StoredGame_index, value) {
-			return
-		}
-	}
 	if x.Board != "" {
 		value := protoreflect.ValueOfString(x.Board)
 		if !f(fd_StoredGame_board, value) {
@@ -141,8 +134,6 @@ func (x *fastReflection_StoredGame) Range(f func(protoreflect.FieldDescriptor, p
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_StoredGame) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "checkersapp.checkers.StoredGame.index":
-		return x.Index != ""
 	case "checkersapp.checkers.StoredGame.board":
 		return x.Board != ""
 	case "checkersapp.checkers.StoredGame.turn":
@@ -167,8 +158,6 @@ func (x *fastReflection_StoredGame) Has(fd protoreflect.FieldDescriptor) bool {
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_StoredGame) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "checkersapp.checkers.StoredGame.index":
-		x.Index = ""
 	case "checkersapp.checkers.StoredGame.board":
 		x.Board = ""
 	case "checkersapp.checkers.StoredGame.turn":
@@ -193,9 +182,6 @@ func (x *fastReflection_StoredGame) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_StoredGame) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "checkersapp.checkers.StoredGame.index":
-		value := x.Index
-		return protoreflect.ValueOfString(value)
 	case "checkersapp.checkers.StoredGame.board":
 		value := x.Board
 		return protoreflect.ValueOfString(value)
@@ -228,8 +214,6 @@ func (x *fastReflection_StoredGame) Get(descriptor protoreflect.FieldDescriptor)
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_StoredGame) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "checkersapp.checkers.StoredGame.index":
-		x.Index = value.Interface().(string)
 	case "checkersapp.checkers.StoredGame.board":
 		x.Board = value.Interface().(string)
 	case "checkersapp.checkers.StoredGame.turn":
@@ -258,8 +242,6 @@ func (x *fastReflection_StoredGame) Set(fd protoreflect.FieldDescriptor, value p
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_StoredGame) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "checkersapp.checkers.StoredGame.index":
-		panic(fmt.Errorf("field index of message checkersapp.checkers.StoredGame is not mutable"))
 	case "checkersapp.checkers.StoredGame.board":
 		panic(fmt.Errorf("field board of message checkersapp.checkers.StoredGame is not mutable"))
 	case "checkersapp.checkers.StoredGame.turn":
@@ -281,8 +263,6 @@ func (x *fastReflection_StoredGame) Mutable(fd protoreflect.FieldDescriptor) pro
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_StoredGame) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "checkersapp.checkers.StoredGame.index":
-		return protoreflect.ValueOfString("")
 	case "checkersapp.checkers.StoredGame.board":
 		return protoreflect.ValueOfString("")
 	case "checkersapp.checkers.StoredGame.turn":
@@ -360,10 +340,6 @@ func (x *fastReflection_StoredGame) ProtoMethods() *protoiface.Methods {
 		var n int
 		var l int
 		_ = l
-		l = len(x.Index)
-		if l > 0 {
-			n += 1 + l + runtime.Sov(uint64(l))
-		}
 		l = len(x.Board)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
@@ -414,33 +390,26 @@ func (x *fastReflection_StoredGame) ProtoMethods() *protoiface.Methods {
 			copy(dAtA[i:], x.Red)
 			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Red)))
 			i--
-			dAtA[i] = 0x2a
+			dAtA[i] = 0x22
 		}
 		if len(x.Black) > 0 {
 			i -= len(x.Black)
 			copy(dAtA[i:], x.Black)
 			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Black)))
 			i--
-			dAtA[i] = 0x22
+			dAtA[i] = 0x1a
 		}
 		if len(x.Turn) > 0 {
 			i -= len(x.Turn)
 			copy(dAtA[i:], x.Turn)
 			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Turn)))
 			i--
-			dAtA[i] = 0x1a
+			dAtA[i] = 0x12
 		}
 		if len(x.Board) > 0 {
 			i -= len(x.Board)
 			copy(dAtA[i:], x.Board)
 			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Board)))
-			i--
-			dAtA[i] = 0x12
-		}
-		if len(x.Index) > 0 {
-			i -= len(x.Index)
-			copy(dAtA[i:], x.Index)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Index)))
 			i--
 			dAtA[i] = 0xa
 		}
@@ -495,38 +464,6 @@ func (x *fastReflection_StoredGame) ProtoMethods() *protoiface.Methods {
 			switch fieldNum {
 			case 1:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Index", wireType)
-				}
-				var stringLen uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					stringLen |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				intStringLen := int(stringLen)
-				if intStringLen < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				postIndex := iNdEx + intStringLen
-				if postIndex < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				if postIndex > l {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-				}
-				x.Index = string(dAtA[iNdEx:postIndex])
-				iNdEx = postIndex
-			case 2:
-				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Board", wireType)
 				}
 				var stringLen uint64
@@ -557,7 +494,7 @@ func (x *fastReflection_StoredGame) ProtoMethods() *protoiface.Methods {
 				}
 				x.Board = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
-			case 3:
+			case 2:
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Turn", wireType)
 				}
@@ -589,7 +526,7 @@ func (x *fastReflection_StoredGame) ProtoMethods() *protoiface.Methods {
 				}
 				x.Turn = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
-			case 4:
+			case 3:
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Black", wireType)
 				}
@@ -621,7 +558,7 @@ func (x *fastReflection_StoredGame) ProtoMethods() *protoiface.Methods {
 				}
 				x.Black = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
-			case 5:
+			case 4:
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Red", wireType)
 				}
@@ -688,6 +625,505 @@ func (x *fastReflection_StoredGame) ProtoMethods() *protoiface.Methods {
 	}
 }
 
+var (
+	md_IndexedGame       protoreflect.MessageDescriptor
+	fd_IndexedGame_index protoreflect.FieldDescriptor
+	fd_IndexedGame_game  protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_checkersapp_checkers_stored_game_proto_init()
+	md_IndexedGame = File_checkersapp_checkers_stored_game_proto.Messages().ByName("IndexedGame")
+	fd_IndexedGame_index = md_IndexedGame.Fields().ByName("index")
+	fd_IndexedGame_game = md_IndexedGame.Fields().ByName("game")
+}
+
+var _ protoreflect.Message = (*fastReflection_IndexedGame)(nil)
+
+type fastReflection_IndexedGame IndexedGame
+
+func (x *IndexedGame) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_IndexedGame)(x)
+}
+
+func (x *IndexedGame) slowProtoReflect() protoreflect.Message {
+	mi := &file_checkersapp_checkers_stored_game_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_IndexedGame_messageType fastReflection_IndexedGame_messageType
+var _ protoreflect.MessageType = fastReflection_IndexedGame_messageType{}
+
+type fastReflection_IndexedGame_messageType struct{}
+
+func (x fastReflection_IndexedGame_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_IndexedGame)(nil)
+}
+func (x fastReflection_IndexedGame_messageType) New() protoreflect.Message {
+	return new(fastReflection_IndexedGame)
+}
+func (x fastReflection_IndexedGame_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_IndexedGame
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_IndexedGame) Descriptor() protoreflect.MessageDescriptor {
+	return md_IndexedGame
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_IndexedGame) Type() protoreflect.MessageType {
+	return _fastReflection_IndexedGame_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_IndexedGame) New() protoreflect.Message {
+	return new(fastReflection_IndexedGame)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_IndexedGame) Interface() protoreflect.ProtoMessage {
+	return (*IndexedGame)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_IndexedGame) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.Index != "" {
+		value := protoreflect.ValueOfString(x.Index)
+		if !f(fd_IndexedGame_index, value) {
+			return
+		}
+	}
+	if x.Game != nil {
+		value := protoreflect.ValueOfMessage(x.Game.ProtoReflect())
+		if !f(fd_IndexedGame_game, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_IndexedGame) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "checkersapp.checkers.IndexedGame.index":
+		return x.Index != ""
+	case "checkersapp.checkers.IndexedGame.game":
+		return x.Game != nil
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: checkersapp.checkers.IndexedGame"))
+		}
+		panic(fmt.Errorf("message checkersapp.checkers.IndexedGame does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_IndexedGame) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "checkersapp.checkers.IndexedGame.index":
+		x.Index = ""
+	case "checkersapp.checkers.IndexedGame.game":
+		x.Game = nil
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: checkersapp.checkers.IndexedGame"))
+		}
+		panic(fmt.Errorf("message checkersapp.checkers.IndexedGame does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_IndexedGame) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "checkersapp.checkers.IndexedGame.index":
+		value := x.Index
+		return protoreflect.ValueOfString(value)
+	case "checkersapp.checkers.IndexedGame.game":
+		value := x.Game
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: checkersapp.checkers.IndexedGame"))
+		}
+		panic(fmt.Errorf("message checkersapp.checkers.IndexedGame does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_IndexedGame) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "checkersapp.checkers.IndexedGame.index":
+		x.Index = value.Interface().(string)
+	case "checkersapp.checkers.IndexedGame.game":
+		x.Game = value.Message().Interface().(*StoredGame)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: checkersapp.checkers.IndexedGame"))
+		}
+		panic(fmt.Errorf("message checkersapp.checkers.IndexedGame does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_IndexedGame) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "checkersapp.checkers.IndexedGame.game":
+		if x.Game == nil {
+			x.Game = new(StoredGame)
+		}
+		return protoreflect.ValueOfMessage(x.Game.ProtoReflect())
+	case "checkersapp.checkers.IndexedGame.index":
+		panic(fmt.Errorf("field index of message checkersapp.checkers.IndexedGame is not mutable"))
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: checkersapp.checkers.IndexedGame"))
+		}
+		panic(fmt.Errorf("message checkersapp.checkers.IndexedGame does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_IndexedGame) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "checkersapp.checkers.IndexedGame.index":
+		return protoreflect.ValueOfString("")
+	case "checkersapp.checkers.IndexedGame.game":
+		m := new(StoredGame)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: checkersapp.checkers.IndexedGame"))
+		}
+		panic(fmt.Errorf("message checkersapp.checkers.IndexedGame does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_IndexedGame) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in checkersapp.checkers.IndexedGame", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_IndexedGame) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_IndexedGame) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_IndexedGame) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_IndexedGame) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*IndexedGame)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		l = len(x.Index)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.Game != nil {
+			l = options.Size(x.Game)
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*IndexedGame)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if x.Game != nil {
+			encoded, err := options.Marshal(x.Game)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0x12
+		}
+		if len(x.Index) > 0 {
+			i -= len(x.Index)
+			copy(dAtA[i:], x.Index)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Index)))
+			i--
+			dAtA[i] = 0xa
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*IndexedGame)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: IndexedGame: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: IndexedGame: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Index", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Index = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			case 2:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Game", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.Game == nil {
+					x.Game = &StoredGame{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Game); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
 // Code generated by protoc-gen-go. DO NOT EDIT.
 // versions:
 // 	protoc-gen-go v1.27.0
@@ -706,11 +1142,10 @@ type StoredGame struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
-	Board string `protobuf:"bytes,2,opt,name=board,proto3" json:"board,omitempty"`
-	Turn  string `protobuf:"bytes,3,opt,name=turn,proto3" json:"turn,omitempty"`
-	Black string `protobuf:"bytes,4,opt,name=black,proto3" json:"black,omitempty"`
-	Red   string `protobuf:"bytes,5,opt,name=red,proto3" json:"red,omitempty"`
+	Board string `protobuf:"bytes,1,opt,name=board,proto3" json:"board,omitempty"`
+	Turn  string `protobuf:"bytes,2,opt,name=turn,proto3" json:"turn,omitempty"`
+	Black string `protobuf:"bytes,3,opt,name=black,proto3" json:"black,omitempty"`
+	Red   string `protobuf:"bytes,4,opt,name=red,proto3" json:"red,omitempty"`
 }
 
 func (x *StoredGame) Reset() {
@@ -731,13 +1166,6 @@ func (*StoredGame) ProtoMessage() {}
 // Deprecated: Use StoredGame.ProtoReflect.Descriptor instead.
 func (*StoredGame) Descriptor() ([]byte, []int) {
 	return file_checkersapp_checkers_stored_game_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *StoredGame) GetIndex() string {
-	if x != nil {
-		return x.Index
-	}
-	return ""
 }
 
 func (x *StoredGame) GetBoard() string {
@@ -768,34 +1196,83 @@ func (x *StoredGame) GetRed() string {
 	return ""
 }
 
+type IndexedGame struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Index string      `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+	Game  *StoredGame `protobuf:"bytes,2,opt,name=game,proto3" json:"game,omitempty"`
+}
+
+func (x *IndexedGame) Reset() {
+	*x = IndexedGame{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_checkersapp_checkers_stored_game_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IndexedGame) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IndexedGame) ProtoMessage() {}
+
+// Deprecated: Use IndexedGame.ProtoReflect.Descriptor instead.
+func (*IndexedGame) Descriptor() ([]byte, []int) {
+	return file_checkersapp_checkers_stored_game_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *IndexedGame) GetIndex() string {
+	if x != nil {
+		return x.Index
+	}
+	return ""
+}
+
+func (x *IndexedGame) GetGame() *StoredGame {
+	if x != nil {
+		return x.Game
+	}
+	return nil
+}
+
 var File_checkersapp_checkers_stored_game_proto protoreflect.FileDescriptor
 
 var file_checkersapp_checkers_stored_game_proto_rawDesc = []byte{
 	0x0a, 0x26, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x61, 0x70, 0x70, 0x2f, 0x63, 0x68,
 	0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x2f, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x64, 0x5f, 0x67, 0x61,
 	0x6d, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x14, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65,
-	0x72, 0x73, 0x61, 0x70, 0x70, 0x2e, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x22, 0x74,
-	0x0a, 0x0a, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05,
-	0x69, 0x6e, 0x64, 0x65, 0x78, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x69, 0x6e, 0x64,
-	0x65, 0x78, 0x12, 0x14, 0x0a, 0x05, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x72, 0x73, 0x61, 0x70, 0x70, 0x2e, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x1a, 0x14,
+	0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x67, 0x6f, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x22, 0x5e, 0x0a, 0x0a, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x64, 0x47, 0x61,
+	0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x05, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x75, 0x72, 0x6e,
-	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x75, 0x72, 0x6e, 0x12, 0x14, 0x0a, 0x05,
-	0x62, 0x6c, 0x61, 0x63, 0x6b, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x62, 0x6c, 0x61,
-	0x63, 0x6b, 0x12, 0x10, 0x0a, 0x03, 0x72, 0x65, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x03, 0x72, 0x65, 0x64, 0x42, 0xc3, 0x01, 0x0a, 0x18, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x68, 0x65,
-	0x63, 0x6b, 0x65, 0x72, 0x73, 0x61, 0x70, 0x70, 0x2e, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72,
-	0x73, 0x42, 0x0f, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x50, 0x72, 0x6f,
-	0x74, 0x6f, 0x50, 0x01, 0x5a, 0x25, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e,
-	0x69, 0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x61,
-	0x70, 0x70, 0x2f, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0xa2, 0x02, 0x03, 0x43, 0x43,
-	0x58, 0xaa, 0x02, 0x14, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x61, 0x70, 0x70, 0x2e,
-	0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0xca, 0x02, 0x14, 0x43, 0x68, 0x65, 0x63, 0x6b,
-	0x65, 0x72, 0x73, 0x61, 0x70, 0x70, 0x5c, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0xe2,
-	0x02, 0x20, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x61, 0x70, 0x70, 0x5c, 0x43, 0x68,
-	0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61,
-	0x74, 0x61, 0xea, 0x02, 0x15, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x61, 0x70, 0x70,
-	0x3a, 0x3a, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x75, 0x72, 0x6e, 0x12, 0x14, 0x0a, 0x05,
+	0x62, 0x6c, 0x61, 0x63, 0x6b, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x62, 0x6c, 0x61,
+	0x63, 0x6b, 0x12, 0x10, 0x0a, 0x03, 0x72, 0x65, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x03, 0x72, 0x65, 0x64, 0x22, 0x5f, 0x0a, 0x0b, 0x49, 0x6e, 0x64, 0x65, 0x78, 0x65, 0x64, 0x47,
+	0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x69, 0x6e, 0x64, 0x65, 0x78, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x69, 0x6e, 0x64, 0x65, 0x78, 0x12, 0x3a, 0x0a, 0x04, 0x67, 0x61, 0x6d,
+	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65,
+	0x72, 0x73, 0x61, 0x70, 0x70, 0x2e, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x2e, 0x53,
+	0x74, 0x6f, 0x72, 0x65, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52,
+	0x04, 0x67, 0x61, 0x6d, 0x65, 0x42, 0xc3, 0x01, 0x0a, 0x18, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x68,
+	0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x61, 0x70, 0x70, 0x2e, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65,
+	0x72, 0x73, 0x42, 0x0f, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x50, 0x72,
+	0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x25, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b,
+	0x2e, 0x69, 0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73,
+	0x61, 0x70, 0x70, 0x2f, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0xa2, 0x02, 0x03, 0x43,
+	0x43, 0x58, 0xaa, 0x02, 0x14, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x61, 0x70, 0x70,
+	0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0xca, 0x02, 0x14, 0x43, 0x68, 0x65, 0x63,
+	0x6b, 0x65, 0x72, 0x73, 0x61, 0x70, 0x70, 0x5c, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73,
+	0xe2, 0x02, 0x20, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x61, 0x70, 0x70, 0x5c, 0x43,
+	0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64,
+	0x61, 0x74, 0x61, 0xea, 0x02, 0x15, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x61, 0x70,
+	0x70, 0x3a, 0x3a, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -810,16 +1287,18 @@ func file_checkersapp_checkers_stored_game_proto_rawDescGZIP() []byte {
 	return file_checkersapp_checkers_stored_game_proto_rawDescData
 }
 
-var file_checkersapp_checkers_stored_game_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_checkersapp_checkers_stored_game_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_checkersapp_checkers_stored_game_proto_goTypes = []interface{}{
-	(*StoredGame)(nil), // 0: checkersapp.checkers.StoredGame
+	(*StoredGame)(nil),  // 0: checkersapp.checkers.StoredGame
+	(*IndexedGame)(nil), // 1: checkersapp.checkers.IndexedGame
 }
 var file_checkersapp_checkers_stored_game_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0, // 0: checkersapp.checkers.IndexedGame.game:type_name -> checkersapp.checkers.StoredGame
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_checkersapp_checkers_stored_game_proto_init() }
@@ -840,6 +1319,18 @@ func file_checkersapp_checkers_stored_game_proto_init() {
 				return nil
 			}
 		}
+		file_checkersapp_checkers_stored_game_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*IndexedGame); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -847,7 +1338,7 @@ func file_checkersapp_checkers_stored_game_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_checkersapp_checkers_stored_game_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

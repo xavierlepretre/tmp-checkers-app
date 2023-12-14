@@ -1,14 +1,19 @@
 syntax = "proto3";
 package checkersapp.checkers;
 
+import "gogoproto/gogo.proto";
+
 option go_package = "checkers-app/x/checkers/types";
 
 message StoredGame {
-  string index = 1; 
-  string board = 2; 
-  string turn = 3; 
-  string black = 4; 
-  string red = 5; 
+  string board = 1; 
+  string turn = 2; 
+  string black = 3; 
+  string red = 4; 
   
 }
 
+message IndexedGame {
+  string index = 1; 
+  StoredGame game = 2 [(gogoproto.nullable) = false];
+}

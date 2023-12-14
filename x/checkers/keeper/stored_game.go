@@ -4,16 +4,17 @@ import (
 	"context"
 
 	"checkers-app/x/checkers/types"
+
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
 	"github.com/cosmos/cosmos-sdk/runtime"
 )
 
 // SetStoredGame set a specific storedGame in the store from its index
-func (k Keeper) SetStoredGame(ctx context.Context, storedGame types.StoredGame) {
+func (k Keeper) SetStoredGame(ctx context.Context, storedGame types.IndexedGame) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.StoredGameKeyPrefix))
-	b := k.cdc.MustMarshal(&storedGame)
+	b := k.cdc.MustMarshal(&storedGame.Game)
 	store.Set(types.StoredGameKey(
 		storedGame.Index,
 	), b)
@@ -53,7 +54,7 @@ func (k Keeper) RemoveStoredGame(
 }
 
 // GetAllStoredGame returns all storedGame
-func (k Keeper) GetAllStoredGame(ctx context.Context) (list []types.StoredGame) {
+func (k Keeper) GetAllStoredGame(ctx context.Context) (list []types.IndexedGame) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.StoredGameKeyPrefix))
 	iterator := storetypes.KVStorePrefixIterator(store, []byte{})
@@ -63,7 +64,10 @@ func (k Keeper) GetAllStoredGame(ctx context.Context) (list []types.StoredGame) 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.StoredGame
 		k.cdc.MustUnmarshal(iterator.Value(), &val)
-		list = append(list, val)
+		list = append(list, types.IndexedGame{
+			Index: string(iterator.Key()[:]),
+			Game:  val,
+		})
 	}
 
 	return

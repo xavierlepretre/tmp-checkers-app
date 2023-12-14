@@ -5,8 +5,9 @@ import (
 
 	keepertest "checkers-app/testutil/keeper"
 	"checkers-app/testutil/nullify"
-	"checkers-app/x/checkers/module"
+	checkers "checkers-app/x/checkers/module"
 	"checkers-app/x/checkers/types"
+
 	"github.com/stretchr/testify/require"
 )
 
@@ -14,10 +15,10 @@ func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
 		Params: types.DefaultParams(),
 
-		SystemInfo: &types.SystemInfo{
+		SystemInfo: types.SystemInfo{
 			NextId: 86,
 		},
-		StoredGameList: []types.StoredGame{
+		StoredGameList: []types.IndexedGame{
 			{
 				Index: "0",
 			},

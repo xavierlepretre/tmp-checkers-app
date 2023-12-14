@@ -59,14 +59,17 @@ paths:
                   properties:
                     index:
                       type: string
-                    board:
-                      type: string
-                    turn:
-                      type: string
-                    black:
-                      type: string
-                    red:
-                      type: string
+                    game:
+                      type: object
+                      properties:
+                        board:
+                          type: string
+                        turn:
+                          type: string
+                        black:
+                          type: string
+                        red:
+                          type: string
               pagination:
                 type: object
                 properties:
@@ -185,8 +188,6 @@ paths:
               storedGame:
                 type: object
                 properties:
-                  index:
-                    type: string
                   board:
                     type: string
                   turn:
@@ -18510,6 +18511,22 @@ definitions:
                   "@type": "type.googleapis.com/google.protobuf.Duration",
                   "value": "1.212s"
                 }
+  checkersapp.checkers.IndexedGame:
+    type: object
+    properties:
+      index:
+        type: string
+      game:
+        type: object
+        properties:
+          board:
+            type: string
+          turn:
+            type: string
+          black:
+            type: string
+          red:
+            type: string
   checkersapp.checkers.Params:
     type: object
     properties:
@@ -18526,14 +18543,17 @@ definitions:
           properties:
             index:
               type: string
-            board:
-              type: string
-            turn:
-              type: string
-            black:
-              type: string
-            red:
-              type: string
+            game:
+              type: object
+              properties:
+                board:
+                  type: string
+                turn:
+                  type: string
+                black:
+                  type: string
+                red:
+                  type: string
       pagination:
         type: object
         properties:
@@ -18566,8 +18586,6 @@ definitions:
       storedGame:
         type: object
         properties:
-          index:
-            type: string
           board:
             type: string
           turn:
@@ -18598,8 +18616,6 @@ definitions:
   checkersapp.checkers.StoredGame:
     type: object
     properties:
-      index:
-        type: string
       board:
         type: string
       turn:
