@@ -6,6 +6,7 @@ import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 import "checkersapp/checkers/params.proto";
 import "checkersapp/checkers/system_info.proto";
+import "checkersapp/checkers/stored_game.proto";
 
 option go_package = "checkers-app/x/checkers/types";
 
@@ -13,7 +14,8 @@ option go_package = "checkers-app/x/checkers/types";
 message GenesisState {
   
   // params defines all the parameters of the module.
-  Params     params     = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
-  SystemInfo systemInfo = 2;
+           Params     params         = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
+           SystemInfo systemInfo     = 2;
+  repeated StoredGame storedGameList = 3 [(gogoproto.nullable) = false] ;
 }
 
